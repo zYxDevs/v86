@@ -64,7 +64,7 @@ def handle_dir(logger, from_path: str, to_path: str):
                 continue
 
             file_hash = hash_file(absname)
-            filename = file_hash[0:HASH_LENGTH] + ".bin"
+            filename = f"{file_hash[:HASH_LENGTH]}.bin"
             to_abs = os.path.join(to_path, filename)
 
             if os.path.exists(to_abs):
@@ -78,13 +78,13 @@ def handle_tar(logger, tar, to_path: str):
         if member.isfile() or member.islnk():
             f = tar.extractfile(member)
             file_hash = hash_fileobj(f)
-            filename = file_hash[0:HASH_LENGTH] + ".bin"
+            filename = f"{file_hash[:HASH_LENGTH]}.bin"
             to_abs = os.path.join(to_path, filename)
 
             if os.path.exists(to_abs):
-                logger.info("Exists, skipped {} ({})".format(to_abs, member.name))
+                logger.info(f"Exists, skipped {to_abs} ({member.name})")
             else:
-                logger.info("Extracted {} ({})".format(to_abs, member.name))
+                logger.info(f"Extracted {to_abs} ({member.name})")
                 to_file = open(to_abs, "wb")
                 f.seek(0)
                 shutil.copyfileobj(f, to_file)
