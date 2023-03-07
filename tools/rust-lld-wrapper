@@ -42,7 +42,7 @@ def find_host_triplet():
     host = re.search(r"host: (.*)", rustc_details)
     if host is None:
         raise ValueError("unexpected rustc output")
-    return host.group(1)
+    return host[1]
 
 def find_rust_lld():
     try:
