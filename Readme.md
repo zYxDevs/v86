@@ -80,10 +80,12 @@ Here's an overview of the operating systems supported in v86:
     [humphd/browser-vm](https://github.com/humphd/browser-vm) and
     [darin755/browser-buildroot](https://github.com/Darin755/browser-buildroot) have some useful scripts for building one.
   - [SkiffOS](https://github.com/skiffos/SkiffOS/tree/master/configs/browser/v86) (based on Buildroot) can cross-compile a custom image.
-  - Archlinux works. See [archlinux.md](docs/archlinux.md) for building an image.
+  - Arch Linux 32 works. See [archlinux.md](docs/archlinux.md) for building an image.
   - Debian works.
   - Ubuntu works up to the latest version that supported i386 (16.04 LTS or 18.04 LTS for some variants).
   - Alpine Linux works. An image can be built from a Dockerfile, see [tools/docker/alpine/](tools/docker/alpine/).
+  - Slackware works.
+  - Void Linux works.
 - ReactOS works.
 - FreeDOS, Windows 1.01 and MS-DOS run very well.
 - KolibriOS works.
@@ -150,7 +152,7 @@ for a full setup on Debian or
 The disk images for testing are not included in this repository. You can
 download them directly from the website using:
 
-`wget -P images/ https://i.copy.sh/{linux3.iso,linux.iso,linux4.iso,buildroot-bzimage.bin,openbsd-floppy.img,kolibri.img,windows101.img,os8.img,freedos722.img}`
+`wget -P images/ https://i.copy.sh/{linux3.iso,linux.iso,linux4.iso,buildroot-bzimage68.bin,openbsd-floppy.img,kolibri.img,windows101.img,os8.img,freedos722.img}`
 
 Run integration tests: `make tests`
 
@@ -205,6 +207,8 @@ repository under their own licenses:
 - [Berkeley SoftFloat](http://www.jhauser.us/arithmetic/SoftFloat.html) is included to precisely emulate 80-bit floating point numbers
 - [The jor1k project](https://github.com/s-macke/jor1k) for 9p, filesystem and uart drivers
 - [WinWorld](https://winworldpc.com/) sources of some old operating systems
+- [OS/2 Museum](https://www.os2museum.com/) sources of some old operating systems
+- [ArchiveOS](https://archiveos.org/) sources of several operating systems
 
 ## More questions?
 
