@@ -104,7 +104,7 @@ def main():
     json.dump(result, args.out, check_circular=False, separators=(',', ':'))
 
 def handle_dir(logger, path, exclude):
-    path = path + "/"
+    path = f"{path}/"
     exclude = exclude or []
     exclude = [os.path.join("/", os.path.normpath(p)) for p in exclude]
     exclude = set(exclude)
@@ -197,9 +197,11 @@ def handle_dir(logger, path, exclude):
                 obj[IDX_TARGET] = target
             elif isfile:
                 file_hash = hash_file(absname)
-                filename = file_hash[0:HASH_LENGTH] + ".bin"
+                filename = f"{file_hash[:HASH_LENGTH]}.bin"
                 existing = filename_to_hash.get(filename)
-                assert existing is None or existing == file_hash, "Collision in short hash (%s and %s)" % (existing, file_hash)
+                assert (
+                    existing is None or existing == file_hash
+                ), f"Collision in short hash ({existing} and {file_hash})"
                 filename_to_hash[filename] = file_hash
                 obj[IDX_FILENAME] = filename
 
@@ -240,9 +242,11 @@ def handle_tar(logger, tar):
             obj[IDX_MODE] |= S_IFREG
             f = tar.extractfile(member)
             file_hash = hash_fileobj(f)
-            filename = file_hash[0:HASH_LENGTH] + ".bin"
+            filename = f"{file_hash[:HASH_LENGTH]}.bin"
             existing = filename_to_hash.get(filename)
-            assert existing is None or existing == file_hash, "Collision in short hash (%s and %s)" % (existing, file_hash)
+            assert (
+                existing is None or existing == file_hash
+            ), f"Collision in short hash ({existing} and {file_hash})"
             filename_to_hash[filename] = file_hash
             obj[IDX_FILENAME] = filename
             if member.islnk():
@@ -256,7 +260,7 @@ def handle_tar(logger, tar):
             obj[IDX_MODE] |= S_IFLNK
             obj[IDX_TARGET] = member.linkname
         else:
-            logger.error("Unsupported type: {} ({})".format(member.type, name))
+            logger.error(f"Unsupported type: {member.type} ({name})")
 
         total_size += obj[IDX_SIZE]
 
